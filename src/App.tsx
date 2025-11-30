@@ -1,7 +1,3 @@
-
-
-
-
 import { useState } from 'react';
 import { Menu, X, Github, Linkedin, Mail, Code, Briefcase, User } from 'lucide-react';
 import './App.css';
@@ -40,11 +36,12 @@ export default function Portfolio() {
     { nom: "Git/GitHub", niveau: 70 }
   ];
 
-  const handleInputChange = (e) => {
+  // ---------- Handlers avec types corrigés ----------
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setFormulaire({ ...formulaire, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     alert(`Message envoyé!\nNom: ${formulaire.nom}\nEmail: ${formulaire.email}`);
     setFormulaire({ nom: '', email: '', message: '' });
@@ -196,7 +193,7 @@ export default function Portfolio() {
                 <h2>Contact</h2>
               </div>
               
-              <div className="contact-form">
+              <form className="contact-form" onSubmit={handleSubmit}>
                 <div className="form-group">
                   <label>Nom</label>
                   <input 
@@ -223,14 +220,14 @@ export default function Portfolio() {
                     name="message"
                     value={formulaire.message}
                     onChange={handleInputChange}
-                    rows="5"
+                    rows={5}
                     placeholder="Votre message..."
                   ></textarea>
                 </div>
-                <button className="btn btn-submit" onClick={handleSubmit}>
+                <button type="submit" className="btn btn-submit">
                   Envoyer le message
                 </button>
-              </div>
+              </form>
 
               <div className="social-links">
                 <a href="#" className="social-icon">
